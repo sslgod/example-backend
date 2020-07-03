@@ -1,0 +1,3 @@
+[submodule "uchetka-web"]
+	path = uchetka-web
+	url = git@github.com:olivoin2/uchetka-web.git
