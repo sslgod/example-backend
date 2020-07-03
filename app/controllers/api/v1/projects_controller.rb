@@ -1,4 +1,5 @@
-class ProjectsController < ApplicationController
+class Api::V1::ProjectsController < ApplicationController
+  before_action :authorize_access_request!, except: [:show, :index]
   before_action :set_project, only: [:show, :update, :destroy]
 
   # GET /projects
@@ -15,10 +16,10 @@ class ProjectsController < ApplicationController
 
   # POST /projects
   def create
-    @project = Project.new(project_params)
+    @project = current_user.projects.new(project_params)
 
     if @project.save
-      render json: @project, status: :created, location: @project
+      render json: @project, status: :created
     else
       render json: @project.errors, status: :unprocessable_entity
     end
@@ -46,6 +47,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:title)
+      params.require(:project).permit(:name)
     end
 end

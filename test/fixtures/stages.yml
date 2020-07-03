@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  started_at: 2020-07-03 05:04:11
+  parent: 
+  is_done: false
+  description: MyText
+
+two:
+  name: MyString
+  started_at: 2020-07-03 05:04:11
+  parent: 
+  is_done: false
+  description: MyText
