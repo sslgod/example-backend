@@ -2,7 +2,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :projects
+      resources :projects do
+        member do 
+          namespace :projects, path: '' do
+            resources :segments, param: :segment_id
+          end
+        end
+      end
     end
   end
 

@@ -1,17 +1,17 @@
 class Api::V1::ProjectsController < ApplicationController
-  before_action :authorize_access_request!, except: [:show, :index]
+  before_action :authorize_access_request!
   before_action :set_project, only: [:show, :update, :destroy]
 
   # GET /projects
   def index
-    @projects = Project.all
+    @projects = current_user.projects.all
 
     render json: @projects
   end
 
   # GET /projects/1
   def show
-    render json: @project
+    render json: @project.to_json( :include => [user: {only: :email}] )
   end
 
   # POST /projects
@@ -19,7 +19,7 @@ class Api::V1::ProjectsController < ApplicationController
     @project = current_user.projects.new(project_params)
 
     if @project.save
-      render json: @project, status: :created
+      render json: @project, status: :created, location: @proje
     else
       render json: @project.errors, status: :unprocessable_entity
     end
@@ -42,11 +42,11 @@ class Api::V1::ProjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      @project = Project.includes(:user).find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:name)
+      params.require(:project).permit(:name, :description)
     end
 end
