@@ -16,10 +16,10 @@ class Api::V1::Projects::SegmentsController < ApplicationController
 
   # POST /segments
   def create
-    @segment = Segment.new(segment_params)
+    @segment = @current_project.segments.new(segment_params)
 
     if @segment.save
-      render json: @segment, status: :created, location: @segment
+      render json: @segment, status: :created
     else
       render json: @segment.errors, status: :unprocessable_entity
     end
@@ -41,7 +41,7 @@ class Api::V1::Projects::SegmentsController < ApplicationController
 
   private
     def set_project
-      @project = Project.find(params[:id])
+      @current_project = Project.find(params[:id])
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_segment

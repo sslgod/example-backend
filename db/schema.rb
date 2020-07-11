@@ -26,14 +26,15 @@ ActiveRecord::Schema.define(version: 2020_07_04_061921) do
 
   create_table "segments", force: :cascade do |t|
     t.string "name"
-    t.bigint "project_id_id"
-    t.integer "days_duration"
-    t.string "days_suffix"
-    t.datetime "started_at"
+    t.bigint "project_id"
+    t.bigint "subproject_id"
+    t.datetime "started_date"
+    t.datetime "due_date"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id_id"], name: "index_segments_on_project_id_id"
+    t.index ["project_id"], name: "index_segments_on_project_id"
+    t.index ["subproject_id"], name: "index_segments_on_subproject_id"
   end
 
   create_table "stages", force: :cascade do |t|

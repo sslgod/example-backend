@@ -11,7 +11,7 @@ class Api::V1::ProjectsController < ApplicationController
 
   # GET /projects/1
   def show
-    render json: @project.to_json( :include => [user: {only: :email}] )
+    render json: @project.to_json( :include => [user: {only: :email}, segments: {}] )
   end
 
   # POST /projects
