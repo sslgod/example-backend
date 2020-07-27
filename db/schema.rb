@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_061921) do
+ActiveRecord::Schema.define(version: 2020_07_18_113703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,14 +27,14 @@ ActiveRecord::Schema.define(version: 2020_07_04_061921) do
   create_table "segments", force: :cascade do |t|
     t.string "name"
     t.bigint "project_id"
-    t.bigint "subproject_id"
     t.datetime "started_date"
     t.datetime "due_date"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "parent_id"
+    t.index ["parent_id"], name: "index_segments_on_parent_id"
     t.index ["project_id"], name: "index_segments_on_project_id"
-    t.index ["subproject_id"], name: "index_segments_on_subproject_id"
   end
 
   create_table "stages", force: :cascade do |t|

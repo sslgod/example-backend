@@ -50,6 +50,6 @@ class Api::V1::Projects::SegmentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def segment_params
-      params.require(:segment).permit(:name, :days_duration, :days_suffix, :started_at, :description)
+      params.require(:segment).permit(:name, :days_duration, :days_suffix, :started_date, :description, :parent_id)
     end
 end
