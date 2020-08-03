@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  segment: 
+  amount: 1.5
+  type: 
+  comment: MyText
+
+two:
+  segment: 
+  amount: 1.5
+  type: 
+  comment: MyText
