@@ -1,4 +1,5 @@
-class TransactionsController < ApplicationController
+class Api::V1::Projects::TransactionsController < ApplicationController
+  before_action :set_project
   before_action :set_transaction, only: [:show, :update, :destroy]
 
   # GET /transactions
@@ -15,10 +16,10 @@ class TransactionsController < ApplicationController
 
   # POST /transactions
   def create
-    @transaction = Transaction.new(transaction_params)
+    @transaction = @current_project.transactions.new(transaction_params)
 
     if @transaction.save
-      render json: @transaction, status: :created, location: @transaction
+      render json: @transaction, status: :created
     else
       render json: @transaction.errors, status: :unprocessable_entity
     end
@@ -46,6 +47,10 @@ class TransactionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def transaction_params
-      params.require(:transaction).permit(:segment, :amount, :type, :comment)
+      params.require(:transaction).permit(:segment_id, :amount, :transaction_type, :comment, :date)
+    end
+
+    def set_project
+      @current_project = Project.find(params[:id])
     end
 end

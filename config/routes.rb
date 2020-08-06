@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :transactions
   namespace :api do
     namespace :v1 do
       resources :projects do
         member do 
           namespace :projects, path: '' do
             resources :segments, param: :segment_id
+            resources :transactions, param: :transaction_id
           end
         end
       end
